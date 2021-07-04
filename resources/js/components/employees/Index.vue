@@ -14,29 +14,16 @@
                         <div class="col">
                             <form>
                                 <div class="form-row align-items-center">
+                                    <!-- <div class="col">
+                                        <input type="search" v-model.lazy="search" class="form-control mb-2" placeholder="Jane Doe"/>
+                                     </div>
                                     <div class="col">
-                                        <input
-                                            type="search"
-                                            v-model.lazy="search"
-                                            class="form-control mb-2"
-                                            placeholder="Jane Doe"
-                                        />
-                                    </div>
-                                    <div class="col">
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary mb-2"
-                                        >
+                                        <button type="submit" class="btn btn-primary mb-2">
                                             Search
                                         </button>
-                                    </div>
-                                    <div class="col">
-                                        <select
-                                            v-model="selectedDeprtment"
-                                            name="city"
-                                            class="form-control"
-                                            aria-label="Default select example"
-                                        >
+                                    </div> -->
+                                    <!-- <div class="col">
+                                        <select v-model="selectedDeprtment" name="city" class="form-control" aria-label="Default select example">
                                             <option
                                                 v-for="department in departments"
                                                 :key="department.id"
@@ -44,17 +31,14 @@
                                                 >{{ department.name }}</option
                                             >
                                         </select>
-                                    </div>
+                                    </div> -->
+                                    <div>
+                            <router-link :to="{ name: 'EmployeesCreate' }" class="btn btn-primary mb-2">Employee Create</router-link>
+                        </div>
                                 </div>
                             </form>
                         </div>
-                        <div>
-                            <router-link
-                                :to="{ name: 'EmployeesCreate' }"
-                                class="btn btn-primary mb-2"
-                                >Create</router-link
-                            >
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="card-body">

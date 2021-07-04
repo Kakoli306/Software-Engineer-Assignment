@@ -6,11 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\EmployeeSingleResource;
-use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Repositories\TestInterface;
+
 
 class EmployeeController extends Controller
 {
+    protected $test;
+    public function __construct(TestInterface $test)
+    {
+        $this->test = $test;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +24,8 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $employees = Employee::all();
+        //$employees = Employee::all();
+        $employees = $this->test->all();
 
         if ($request->search) {
             $employees = Employee::where('first_name', "like", "%{$request->search}%")
@@ -50,7 +57,8 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeStoreRequest $request)
     {
-        $employee = Employee::create($request->validated());
+       // $employee = Employee::create($request->validated());
+       $employee = $this->test->store($request->validated());
 
         return response()->json($employee);
     }
@@ -61,8 +69,14 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Employee $employee)
+    // public function show(Employee $employee)
+    // {
+    //     return new EmployeeSingleResource($employee);
+    // }
+
+    public function show($id)
     {
+        $employee = $this->test->get($id);
         return new EmployeeSingleResource($employee);
     }
 
@@ -74,7 +88,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+       // $this->test->get($id);
+        //return response()->json($employee);
+
     }
 
     /**
@@ -84,9 +100,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeStoreRequest $request, Employee $employee)
+    public function update($id,EmployeeStoreRequest $request)
     {
-        $employee->update($request->validated());
+        $this->test->update($id,$request->all());
+       // $employee->update($request->validated());
     }
 
     /**
@@ -95,9 +112,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        $employee->delete();
+       // $employee->delete();
+       $this->test->delete($id);
 
         return response()->json('Employee Deleted Successfully');
     }

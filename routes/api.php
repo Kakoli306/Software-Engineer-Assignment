@@ -4,6 +4,9 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\DashController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +33,8 @@ Route::get('/employees/{state}/cities', [EmployeeDataController::class, 'cities'
 // Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy']);
 
 Route::apiResource('employees', EmployeeController::class);
+
+Route::apiResource('tasks', TaskController::class);
+
+Route::get('dashboard', [DashController::class,'dash','dashone']);
+
